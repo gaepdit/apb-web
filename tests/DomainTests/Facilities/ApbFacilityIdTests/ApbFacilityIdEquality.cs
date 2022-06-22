@@ -5,26 +5,30 @@ namespace DomainTests.Facilities.ApbFacilityIdTests;
 public class ApbFacilityIdEquality
 {
     [Test]
-    public void IsTrueForEquivalentAirsNumbers()
+    public void IsTrueForEquivalentFacilityIds()
     {
-        var airs1 = new ApbFacilityId("12345678");
-        var airs2 = new ApbFacilityId("123-45678");
+        var facilityId1 = new ApbFacilityId("12345678");
+        var facilityId2 = new ApbFacilityId("123-45678");
+        
         Assert.Multiple(() =>
         {
-            (airs1 == airs2).Should().BeTrue();
-            (airs1 != airs2).Should().BeFalse();
+            (facilityId1 == facilityId2).Should().BeTrue();
+            facilityId1.Equals(facilityId2).Should().BeTrue();
+            (facilityId1 != facilityId2).Should().BeFalse();
         });
     }
 
     [Test]
-    public void IsFalseForDifferentAirsNumbers()
+    public void IsFalseForDifferentFacilityIds()
     {
-        var airs1 = new ApbFacilityId("12345678");
-        var airs2 = new ApbFacilityId("87654321");
+        var facilityId1 = new ApbFacilityId("12345678");
+        var facilityId2 = new ApbFacilityId("87654321");
+        
         Assert.Multiple(() =>
         {
-            (airs1 == airs2).Should().BeFalse();
-            (airs1 != airs2).Should().BeTrue();
+            (facilityId1 == facilityId2).Should().BeFalse();
+            facilityId1.Equals(facilityId2).Should().BeFalse();
+            (facilityId1 != facilityId2).Should().BeTrue();
         });
     }
 }

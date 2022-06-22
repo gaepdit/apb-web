@@ -7,13 +7,7 @@ namespace Apb.Domain.Facilities.FacilityId;
 [Owned]
 public record ApbFacilityId
 {
-    public ApbFacilityId(string facilityId)
-    {
-        if (!IsValidAirsNumberFormat(facilityId))
-            throw new ArgumentException($"{facilityId} is not a valid AIRS number.");
-
-        FacilityId = GetNormalizedAirsNumber(facilityId);
-    }
+    public ApbFacilityId(string facilityId) => FacilityId = NormalizeFacilityId(facilityId);
 
     public string FacilityId { get; }
 
@@ -33,12 +27,18 @@ public record ApbFacilityId
 
     // Static methods
 
-    private const string AirsNumberPattern = @"^\d{3}-?\d{5}$";
-    public static bool IsValidAirsNumberFormat(string facilityId) => Regex.IsMatch(facilityId, AirsNumberPattern);
+    private const string FacilityIdPattern = @"^\d{3}-?\d{5}$";
+    public static bool IsValidFacilityIdFormat(string facilityId) => Regex.IsMatch(facilityId, FacilityIdPattern);
 
-    private static string GetNormalizedAirsNumber(string facilityId)
+    public static string NormalizeFacilityId(string facilityId)
     {
-        var airs = facilityId.Replace("-", "");
-        return $"{airs[..3]}-{airs[3..8]}";
+        if(string.IsNullOrEmpty(facilityId))
+            throw new ArgumentException("AIRS number cannot be empty.");
+            
+        if (!IsValidFacilityIdFormat(facilityId))
+            throw new ArgumentException($"{facilityId} is not a valid AIRS number.");
+
+        var id = facilityId.Replace("-", "");
+        return $"{id[..3]}-{id[3..8]}";
     }
 }

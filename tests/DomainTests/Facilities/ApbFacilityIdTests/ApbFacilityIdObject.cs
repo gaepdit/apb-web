@@ -8,14 +8,14 @@ public class ApbFacilityIdObject
     [Test]
     public void HasCorrectProperties()
     {
-        var airs = new ApbFacilityId("12345678");
+        var facilityId = new ApbFacilityId("12345678");
 
         Assert.Multiple(() =>
         {
-            airs.ToString().Should().Be("123-45678");
-            airs.FacilityId.Should().Be("123-45678");
-            airs.ShortString.Should().Be("12345678");
-            airs.CountyCode.Should().Be(123);
+            facilityId.ToString().Should().Be("123-45678");
+            facilityId.FacilityId.Should().Be("123-45678");
+            facilityId.ShortString.Should().Be("12345678");
+            facilityId.CountyCode.Should().Be(123);
         });
     }
 
@@ -34,13 +34,21 @@ public class ApbFacilityIdObject
     }
 
     [Test]
-    public void ThrowsOnInvalidAirsNumber()
+    public void ThrowsOnInvalidFacilityId()
     {
         const string facilityId = "1";
         var act = () => new ApbFacilityId(facilityId);
         act.Should().Throw<ArgumentException>().WithMessage($"{facilityId} is not a valid AIRS number.");
     }
-    
+
+    [Test]
+    public void ThrowsOnEmptyFacilityId()
+    {
+        const string facilityId = "";
+        var act = () => new ApbFacilityId(facilityId);
+        act.Should().Throw<ArgumentException>().WithMessage("AIRS number cannot be empty.");
+    }
+
     [Test]
     public void HasCorrectJsonSerialization()
     {

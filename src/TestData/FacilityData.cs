@@ -21,7 +21,6 @@ public static class FacilityData
     {
         new("00100001")
         {
-            Id = new Guid("17ee36f0-4bd8-45c8-adb0-13a6a45ed321"),
             Name = "Apple Corp",
             Description = "Apples and more",
             FacilityAddress = new Address

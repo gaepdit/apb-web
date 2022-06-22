@@ -18,11 +18,13 @@ public class FacilityView
     }
 
     // Facility identity
-    
-    private Guid Id { get; }
+
+    public string Id { get; }
 
     [Display(Name = "AIRS Number")]
-    public ApbFacilityId? FacilityId { get; }
+    public ApbFacilityId FacilityId { get; }
+
+    // Description
 
     [Display(Name = "Company name")]
     public string Name { get; }

@@ -1,19 +1,32 @@
 ﻿using Apb.Domain.Facilities.FacilityId;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Apb.Domain.Facilities.Entities;
 
 public class Facility : IAuditable
 {
+    private ApbFacilityId? _facilityId;
+
     [UsedImplicitly]
     internal Facility() { }
 
-    public Facility(string facilityId) => FacilityId = new ApbFacilityId(facilityId);
-    public Facility(ApbFacilityId facilityId) => FacilityId = facilityId;
+    public Facility(string facilityId) => Id = ApbFacilityId.NormalizeFacilityId(facilityId);
+
+    public Facility(ApbFacilityId facilityId)
+    {
+        Id = facilityId.FacilityId;
+        _facilityId = facilityId;
+    }
 
     // Facility identity
 
-    public Guid Id { get; [UsedImplicitly] init; } = Guid.NewGuid();
-    public ApbFacilityId FacilityId { get; } = null!;
+    [Key]
+    [StringLength(9)]
+    public string Id { get; [UsedImplicitly] init; } = null!;
+
+    [NotMapped]
+    public ApbFacilityId FacilityId => _facilityId ??= new ApbFacilityId(Id);
 
     // Description
 

@@ -16,12 +16,6 @@ public class ApbDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Facility>()
-            .OwnsOne(e => e.FacilityId,
-                f => f.Property(e => e.FacilityId).HasColumnName("FacilityId"));
-        // TODO: Make facility ID unique (Maybe use facility ID as string as primary key?)
-        // modelBuilder.Entity<Facility>().HasIndex(e => e.FacilityId).IsUnique();
-
         base.OnModelCreating(modelBuilder);
 
         // Add audit properties to auditable entities

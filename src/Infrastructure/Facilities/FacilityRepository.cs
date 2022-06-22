@@ -13,12 +13,12 @@ public sealed class FacilityRepository : IFacilityRepository
     public FacilityRepository(ApbDbContext context) => _context = context;
 
     public Task<bool> FacilityExistsAsync(ApbFacilityId facilityId) =>
-        _context.Facilities.AsNoTracking().AnyAsync(e => e.FacilityId.FacilityId == facilityId.FacilityId);
+        _context.Facilities.AsNoTracking().AnyAsync(e => e.Id == facilityId.FacilityId);
 
     public async Task<FacilityView?> GetFacilityAsync(ApbFacilityId facilityId)
     {
         var item = await _context.Facilities.AsNoTracking()
-            .SingleOrDefaultAsync(e => e.FacilityId.FacilityId == facilityId.FacilityId).ConfigureAwait(false);
+            .SingleOrDefaultAsync(e => e.Id == facilityId.FacilityId).ConfigureAwait(false);
         return item is null ? null : new FacilityView(item);
     }
 
