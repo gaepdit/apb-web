@@ -1,4 +1,4 @@
-using Apb.Domain.Facilities.Models;
+using Apb.Domain.Facilities.FacilityId;
 
 namespace DomainTests.Facilities.ApbFacilityIdTests;
 

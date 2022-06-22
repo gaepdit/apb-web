@@ -1,12 +1,12 @@
+using Apb.Domain.Facilities.FacilityId;
 using System.Text.Json;
-using Apb.Domain.Facilities.Models;
 
 namespace DomainTests.Facilities.ApbFacilityIdTests;
 
 public class ApbFacilityIdObject
 {
     [Test]
-    public void HasCorrectlyFormattedProperties()
+    public void HasCorrectProperties()
     {
         var airs = new ApbFacilityId("12345678");
 
@@ -15,12 +15,12 @@ public class ApbFacilityIdObject
             airs.ToString().Should().Be("123-45678");
             airs.FacilityId.Should().Be("123-45678");
             airs.ShortString.Should().Be("12345678");
-            airs.EpaFacilityIdentifier.Should().Be("GA0000001312345678");
+            airs.CountyCode.Should().Be(123);
         });
     }
 
     [Test]
-    public void HasCorrectlyFormattedPropertiesFromImplicitConversion()
+    public void HasCorrectPropertiesFromImplicitConversion()
     {
         ApbFacilityId airs = "12345678";
 
@@ -29,16 +29,16 @@ public class ApbFacilityIdObject
             airs.ToString().Should().Be("123-45678");
             airs.FacilityId.Should().Be("123-45678");
             airs.ShortString.Should().Be("12345678");
-            airs.EpaFacilityIdentifier.Should().Be("GA0000001312345678");
+            airs.CountyCode.Should().Be(123);
         });
     }
 
     [Test]
     public void ThrowsOnInvalidAirsNumber()
     {
-        const string id = "abc";
-        var act = () => new ApbFacilityId(id);
-        act.Should().Throw<ArgumentException>().WithMessage($"{id} is not a valid AIRS number.");
+        const string facilityId = "1";
+        var act = () => new ApbFacilityId(facilityId);
+        act.Should().Throw<ArgumentException>().WithMessage($"{facilityId} is not a valid AIRS number.");
     }
     
     [Test]
