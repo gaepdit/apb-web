@@ -16,6 +16,8 @@ public class ApbDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.HasDefaultSchema("air");
+
         base.OnModelCreating(modelBuilder);
 
         // Add audit properties to auditable entities
