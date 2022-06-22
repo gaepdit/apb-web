@@ -1,5 +1,4 @@
-﻿using Apb.Domain.Data;
-using Apb.Domain.Facilities.Entities;
+﻿using Apb.Domain.Facilities.Entities;
 using Apb.Domain.Facilities.FacilityId;
 using Apb.Domain.Facilities.Resources;
 
@@ -31,7 +30,6 @@ public static class FacilityData
                 State = "GA",
                 PostalCode = "30000",
             },
-            County = CountyData.Counties[001],
             GeoCoordinates = new GeoCoordinates { Latitude = 34.1M, Longitude = -84.5M },
         },
         new("12100021")
@@ -46,7 +44,6 @@ public static class FacilityData
                 State = "GA",
                 PostalCode = "30000",
             },
-            County = CountyData.Counties[121],
         },
         new("05100149")
         {
@@ -60,7 +57,6 @@ public static class FacilityData
                 State = "GA",
                 PostalCode = "30000",
             },
-            County = CountyData.Counties[051],
             GeoCoordinates = new GeoCoordinates { Latitude = 34.1M, Longitude = -84.5M },
         },
         new("17900001")
@@ -75,7 +71,6 @@ public static class FacilityData
                 State = "GA",
                 PostalCode = "30000",
             },
-            County = CountyData.Counties[179],
         },
         new("05900071")
         {
@@ -89,7 +84,6 @@ public static class FacilityData
                 State = "GA",
                 PostalCode = "30000",
             },
-            County = CountyData.Counties[059],
         },
         new("05700040")
         {
@@ -103,7 +97,6 @@ public static class FacilityData
                 State = "GA",
                 PostalCode = "30000",
             },
-            County = CountyData.Counties[057],
             GeoCoordinates = new GeoCoordinates { Latitude = 34.1M, Longitude = -84.5M },
         },
         new("00100005")
@@ -118,7 +111,6 @@ public static class FacilityData
                 State = "GA",
                 PostalCode = "30000",
             },
-            County = CountyData.Counties[001],
             GeoCoordinates = new GeoCoordinates { Latitude = 34.1M, Longitude = -84.5M },
         },
         new("24500002")
@@ -133,7 +125,6 @@ public static class FacilityData
                 State = "GA",
                 PostalCode = "30000",
             },
-            County = CountyData.Counties[245],
             GeoCoordinates = new GeoCoordinates { Latitude = 34.1M, Longitude = -84.5M },
         },
         new("07300003")
@@ -148,7 +139,6 @@ public static class FacilityData
                 State = "GA",
                 PostalCode = "30000",
             },
-            County = CountyData.Counties[073],
             GeoCoordinates = new GeoCoordinates { Latitude = 34.1M, Longitude = -84.5M },
         },
         new("11500021")
@@ -163,7 +153,6 @@ public static class FacilityData
                 State = "GA",
                 PostalCode = "30000",
             },
-            County = CountyData.Counties[115],
             GeoCoordinates = new GeoCoordinates { Latitude = 34.1M, Longitude = -84.5M },
         },
         new("15300040")
@@ -178,7 +167,6 @@ public static class FacilityData
                 State = "GA",
                 PostalCode = "30000",
             },
-            County = CountyData.Counties[153],
             GeoCoordinates = new GeoCoordinates { Latitude = 34.1M, Longitude = -84.5M },
         },
         new("30500001")
@@ -193,7 +181,6 @@ public static class FacilityData
                 State = "GA",
                 PostalCode = "30000",
             },
-            County = CountyData.Counties[305],
             GeoCoordinates = new GeoCoordinates { Latitude = 34.1M, Longitude = -84.5M },
         },
         new("31300062")
@@ -208,7 +195,6 @@ public static class FacilityData
                 State = "GA",
                 PostalCode = "30000",
             },
-            County = CountyData.Counties[313],
             GeoCoordinates = new GeoCoordinates { Latitude = 34.1M, Longitude = -84.5M },
         },
     };

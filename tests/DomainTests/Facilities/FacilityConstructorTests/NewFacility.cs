@@ -11,6 +11,7 @@ public class NewFacility
         var facilityId = new ApbFacilityId("00100000");
         var facility = new Facility(facilityId);
         facility.FacilityId.ShortString.Should().Be(facilityId.ShortString);
+        facility.County.Id.Should().Be(1);
     }
 
     [Test]
@@ -19,6 +20,7 @@ public class NewFacility
         const string facilityId = "00100000";
         var facility = new Facility(facilityId);
         facility.FacilityId.ShortString.Should().Be(facilityId);
+        facility.County.Id.Should().Be(1);
     }
 
     [Test]

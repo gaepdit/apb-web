@@ -1,4 +1,5 @@
-﻿using Apb.Domain.Facilities.Entities;
+﻿using Apb.Domain.Data;
+using Apb.Domain.Facilities.Entities;
 using Apb.Domain.Facilities.FacilityId;
 using System.ComponentModel.DataAnnotations;
 
@@ -13,7 +14,6 @@ public class FacilityView
         Name = facility.Name;
         Description = facility.Description;
         FacilityAddress = facility.FacilityAddress;
-        County = facility.County;
         GeoCoordinates = facility.GeoCoordinates;
     }
 
@@ -34,11 +34,10 @@ public class FacilityView
 
     // Location
 
+    public County County => CountyData.Counties[FacilityId.CountyCode];
+
     [Display(Name = "Facility Address")]
     public Address? FacilityAddress { get; }
-
-    [Display(Name = "County")]
-    public County? County { get; }
 
     [Display(Name = "Geographic coordinates")]
     public GeoCoordinates? GeoCoordinates { get; }

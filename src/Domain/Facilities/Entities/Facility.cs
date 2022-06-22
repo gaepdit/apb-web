@@ -1,6 +1,6 @@
-﻿using Apb.Domain.Facilities.FacilityId;
+﻿using Apb.Domain.Data;
+using Apb.Domain.Facilities.FacilityId;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Apb.Domain.Facilities.Entities;
 
@@ -25,7 +25,6 @@ public class Facility : IAuditable
     [StringLength(9)]
     public string Id { get; [UsedImplicitly] init; } = null!;
 
-    [NotMapped]
     public ApbFacilityId FacilityId => _facilityId ??= new ApbFacilityId(Id);
 
     // Description
@@ -35,7 +34,7 @@ public class Facility : IAuditable
 
     // Location
 
+    public County County => CountyData.Counties[FacilityId.CountyCode];
     public Address? FacilityAddress { get; init; }
-    public County? County { get; init; }
     public GeoCoordinates? GeoCoordinates { get; init; }
 }
