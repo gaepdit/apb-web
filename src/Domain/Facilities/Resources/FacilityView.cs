@@ -2,6 +2,7 @@
 using Apb.Domain.Facilities.Entities;
 using Apb.Domain.Facilities.FacilityId;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Apb.Domain.Facilities.Resources;
 
@@ -19,8 +20,10 @@ public class FacilityView
 
     // Facility identity
 
+    [JsonPropertyName("facilityId")]
     public string Id { get; }
 
+    [JsonIgnore]
     [Display(Name = "AIRS Number")]
     public ApbFacilityId FacilityId { get; }
 
