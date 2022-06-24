@@ -1,8 +1,6 @@
 using Apb.Domain.Facilities.Repositories;
-using Apb.Infrastructure.DbContexts;
 using Apb.LocalRepository.Facilities;
 using Apb.WebAPI.Platform.Local;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,12 +8,14 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
+
+const string ApiTitle = "Georgia Air Protection Branch Stationary Sources API";
 builder.Services.AddSwaggerGen(opts =>
 {
     opts.SwaggerDoc("v0", new OpenApiInfo
     {
         Version = "v0",
-        Title = "Georgia Air Protection Branch Stationary Sources API",
+        Title = ApiTitle,
         Contact = new OpenApiContact
         {
             Name = "Georgia EPD-IT Support",
@@ -47,12 +47,12 @@ else
 var app = builder.Build();
 
 // Configure API documentation
-app.UseSwagger(opts => { opts.RouteTemplate = "api-docs/{documentName}/openapi.json"; });
+app.UseSwagger(opts => { opts.RouteTemplate = "{documentName}/openapi.json"; });
 app.UseSwaggerUI(opts =>
 {
-    opts.SwaggerEndpoint("/api-docs/v0/openapi.json", "APB API v0");
-    opts.RoutePrefix = "api-docs";
-    opts.DocumentTitle = "Georgia Air Protection Branch Stationary Sources API";
+    opts.SwaggerEndpoint("/v0/openapi.json", "APB API v0");
+    opts.RoutePrefix = "";
+    opts.DocumentTitle = ApiTitle;
 });
 
 app.UseHttpsRedirection();
