@@ -8,10 +8,31 @@
             "name": "Web API",
             "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "build",
+            "preLaunchTask": "build-api",
             "program": "${workspaceFolder}/_artifacts/WebAPI/bin/Debug/net6.0/WebAPI.dll",
             "args": [],
             "cwd": "${workspaceFolder}/src/WebAPI",
+            "stopAtEntry": false,
+            "console": "internalConsole",
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Local"
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceFolder}/Views"
+            }
+        },
+        {
+            "name": "App",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-app",
+            "program": "${workspaceFolder}/_artifacts/ApbApp/bin/Debug/net6.0/ApbApp.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/ApbApp",
             "stopAtEntry": false,
             "console": "internalConsole",
             "serverReadyAction": {
