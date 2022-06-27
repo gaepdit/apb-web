@@ -7,11 +7,13 @@ namespace Apb.LocalRepository.Facilities;
 
 public sealed class FacilityRepository : IFacilityRepository
 {
-    public Task<bool> FacilityExistsAsync(ApbFacilityId facilityId) =>
-        Task.FromResult(FacilityData.Facilities.Any(e => e.FacilityId == facilityId));
+    public bool FacilityExists(ApbFacilityId facilityId) =>
+        FacilityData.Facilities.Any(e => e.FacilityId == facilityId);
+    public Task<FacilityExistsResult> FacilityExistsAsync(ApbFacilityId facilityId) =>
+        Task.FromResult(new FacilityExistsResult(facilityId.FacilityId, FacilityExists(facilityId)));
 
-    public async Task<FacilityView?> GetFacilityAsync(ApbFacilityId facilityId) =>
-        await FacilityExistsAsync(facilityId) ? FacilityData.GetFacility(facilityId) : null;
+    public Task<FacilityView?> GetFacilityAsync(ApbFacilityId facilityId) =>
+        Task.FromResult(FacilityExists(facilityId) ? FacilityData.GetFacility(facilityId) : null);
 
     public void Dispose()
     {

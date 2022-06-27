@@ -12,8 +12,9 @@ public sealed class FacilityRepository : IFacilityRepository
 
     public FacilityRepository(ApbDbContext context) => _context = context;
 
-    public Task<bool> FacilityExistsAsync(ApbFacilityId facilityId) =>
-        _context.Facilities.AsNoTracking().AnyAsync(e => e.Id == facilityId.FacilityId);
+    public async Task<FacilityExistsResult> FacilityExistsAsync(ApbFacilityId facilityId) =>
+        new FacilityExistsResult(facilityId.FacilityId,
+            await _context.Facilities.AsNoTracking().AnyAsync(e => e.Id == facilityId.FacilityId));
 
     public async Task<FacilityView?> GetFacilityAsync(ApbFacilityId facilityId)
     {

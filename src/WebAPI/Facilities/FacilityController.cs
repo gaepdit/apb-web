@@ -25,11 +25,11 @@ public class FacilityController : ControllerBase
             return BadRequest("The requested Facility ID is not formatted correctly.");
 
         var item = await repository.GetFacilityAsync(facilityId);
-        return item != null ? Ok(item) : NotFound("The requested Facility ID was not found.");
+        return item is null ? NotFound("The requested Facility ID was not found.") : Ok(item);
     }
 
     [HttpGet("exists")]
-    public async Task<ActionResult<bool>> FacilityExistsAsync(
+    public async Task<ActionResult<FacilityExistsResult>> FacilityExistsAsync(
         [FromServices] IFacilityRepository repository,
         [FromRoute] string facilityId)
     {

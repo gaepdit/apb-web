@@ -14,14 +14,24 @@ public class FacilityExists
 
         var result = await repository.FacilityExistsAsync(facility.FacilityId);
 
-        result.Should().BeTrue();
+        Assert.Multiple(() =>
+        {
+            result.Exists.Should().BeTrue();
+            result.FacilityId.Should().Be(facility.FacilityId.FacilityId);
+        });
     }
 
     [Test]
     public async Task ReturnsFalseIfNotExists()
     {
         using var repository = await RepositoryHelper.CreateRepositoryHelper().GetFacilityRepositoryAsync();
+
         var result = await repository.FacilityExistsAsync(new ApbFacilityId(FacilityData.FacilityIdThatDoesNotExist));
-        result.Should().BeFalse();
+
+        Assert.Multiple(() =>
+        {
+            result.Exists.Should().BeFalse();
+            result.FacilityId.Should().Be(FacilityData.FacilityIdThatDoesNotExist);
+        });
     }
 }
