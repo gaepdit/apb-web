@@ -1,4 +1,3 @@
-using Apb.ApbApp.Data;
 using Apb.ApbApp.Platform.Local;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
@@ -9,7 +8,6 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddSingleton<WeatherForecastService>();
 StaticWebAssetsLoader.UseStaticWebAssets(builder.Environment, builder.Configuration);
 
 var app = builder.Build();
