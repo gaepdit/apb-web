@@ -23,7 +23,7 @@ public class Facility : IAuditable
 
     [Key]
     [StringLength(9)]
-    public string Id { get; [UsedImplicitly] init; } = null!;
+    public string Id { get; [UsedImplicitly] init; } = default!;
 
     public ApbFacilityId FacilityId => _facilityId ??= new ApbFacilityId(Id);
 

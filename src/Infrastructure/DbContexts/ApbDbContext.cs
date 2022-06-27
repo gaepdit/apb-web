@@ -12,7 +12,7 @@ public class ApbDbContext : DbContext
     public ApbDbContext(DbContextOptions<ApbDbContext> options, IHttpContextAccessor? accessor) : base(options) =>
         _httpContextAccessor = accessor;
 
-    public DbSet<Facility> Facilities { get; [UsedImplicitly] set; } = null!;
+    public DbSet<Facility> Facilities { get; [UsedImplicitly] set; } = default!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

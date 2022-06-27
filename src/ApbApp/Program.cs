@@ -1,6 +1,5 @@
 using Apb.ApbApp.Platform.Local;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
+using Apb.Domain.Facilities.Repositories;
 using Microsoft.AspNetCore.Hosting.StaticWebAssets;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +9,17 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 StaticWebAssetsLoader.UseStaticWebAssets(builder.Environment, builder.Configuration);
 
+// Configure repositories and services
+if (builder.Environment.IsLocalEnv())
+{
+    builder.Services.AddScoped<IFacilityRepository, Apb.LocalRepository.Facilities.FacilityRepository>();
+}
+else
+{
+    builder.Services.AddScoped<IFacilityRepository, Apb.Infrastructure.Facilities.FacilityRepository>();
+}
+
+// Build the application
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -20,12 +30,12 @@ if (!app.Environment.IsDevelopment() && !app.Environment.IsLocalEnv())
     app.UseHsts();
 }
 
+// Configure the application
 app.UseHttpsRedirection();
-
 app.UseStaticFiles();
-
 app.UseRouting();
 
+// Map endpoints
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
 
