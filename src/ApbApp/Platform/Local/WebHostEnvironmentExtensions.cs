@@ -1,4 +1,4 @@
-﻿namespace ApbApp.Platform.Local;
+﻿namespace Apb.ApbApp.Platform.Local;
 
 internal static class WebHostEnvironmentExtensions
 {

@@ -1,7 +1,7 @@
+using Apb.ApbApp.Data;
+using Apb.ApbApp.Platform.Local;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using ApbApp.Data;
-using ApbApp.Platform.Local;
 using Microsoft.AspNetCore.Hosting.StaticWebAssets;
 
 var builder = WebApplication.CreateBuilder(args);

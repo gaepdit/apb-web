@@ -1,4 +1,4 @@
-namespace ApbApp.Data;
+namespace Apb.ApbApp.Data;
 
 public class WeatherForecastService
 {
