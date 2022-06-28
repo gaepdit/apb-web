@@ -11,63 +11,31 @@ public partial class Facility
     [Inject]
     private IFacilityRepository Repository { get; set; } = default!;
 
-    // Facility ID parameter view
+    [Inject]
+    private NavigationManager NavigationManager { get; set; } = default!;
+
     [Parameter]
-    public string? FacilityId { get; set; }
+    public string? Id { get; set; }
+
+    private bool ValidFacilityId { get; set; }
+
+    private ApbFacilityId? FacilityId { get; set; }
 
     private FacilityView? FacilityView { get; set; }
-    private bool ShowSingleFacilityView { get; set; }
 
-    protected override async Task OnParametersSetAsync()
+    protected override async Task OnInitializedAsync()
     {
-        if (string.IsNullOrEmpty(FacilityId))
+        if (string.IsNullOrEmpty(Id))
         {
-            ShowSingleFacilityView = false;
-            FacilityView = null;
+            NavigationManager.NavigateTo("/facility-search");
+            return;
         }
-        else
+
+        if (ApbFacilityId.IsValidFacilityIdFormat(Id))
         {
-            ShowSingleFacilityView = true;
+            ValidFacilityId = true;
+            FacilityId = new ApbFacilityId(Id);
             FacilityView = await Repository.GetFacilityAsync(FacilityId);
         }
-
-        await base.OnParametersSetAsync();
-    }
-
-    // Search form view
-    private string? SearchText { get; set; }
-    private SearchState State { get; set; }
-
-    private enum SearchState
-    {
-        SearchTextEmpty,
-        FacilityIdNotValid,
-        FacilityNotFound,
-        FacilityFound,
-    }
-
-    [UsedImplicitly]
-    private async Task FindFacilityAsync(ChangeEventArgs args)
-    {
-        SearchText = args.Value?.ToString();
-
-        if (string.IsNullOrEmpty(SearchText))
-        {
-            FacilityView = null;
-            State = SearchState.SearchTextEmpty;
-            return;
-        }
-
-        if (!ApbFacilityId.IsValidFacilityIdFormat(SearchText))
-        {
-            FacilityView = null;
-            State = SearchState.FacilityIdNotValid;
-            return;
-        }
-
-        var id = new ApbFacilityId(SearchText);
-
-        FacilityView = await Repository.GetFacilityAsync(id);
-        State = FacilityView is null ? SearchState.FacilityNotFound : SearchState.FacilityFound;
     }
 }

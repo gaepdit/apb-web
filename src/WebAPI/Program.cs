@@ -9,13 +9,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
-const string ApiTitle = "Georgia Air Protection Branch Stationary Sources API";
+const string apiTitle = "Georgia Air Protection Branch Stationary Sources API";
 builder.Services.AddSwaggerGen(opts =>
 {
     opts.SwaggerDoc("v0", new OpenApiInfo
     {
         Version = "v0",
-        Title = ApiTitle,
+        Title = apiTitle,
         Contact = new OpenApiContact
         {
             Name = "Georgia EPD-IT Support",
@@ -52,7 +52,7 @@ app.UseSwaggerUI(opts =>
 {
     opts.SwaggerEndpoint("/v0/openapi.json", "APB API v0");
     opts.RoutePrefix = "";
-    opts.DocumentTitle = ApiTitle;
+    opts.DocumentTitle = apiTitle;
 });
 
 app.UseHttpsRedirection();

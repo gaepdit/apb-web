@@ -1,92 +1,46 @@
-﻿@page "/facility/{facilityId?}"
-@using System.Web
+﻿@page "/facility/{id?}"
 
-@if (ShowSingleFacilityView)
+@if (!ValidFacilityId)
 {
-    @if (FacilityView is null)
-    {
-        <PageTitle>Facility Not Found</PageTitle>
+    <PageTitle>Invalid Facility ID</PageTitle>
 
-        <h1>Facility Not Found</h1>
+    <h1>Invalid Facility ID</h1>
 
-        <p>Facility ID @HttpUtility.HtmlEncode(FacilityId) could not be found.</p>
-    }
-    else
-    {
-        <PageTitle>Facility @FacilityView.Id</PageTitle>
-        <h1>Facility @FacilityView.Id</h1>
+    <p>The Facility ID requested is not valid.</p>
+}
+else if (FacilityView is null)
+{
+    <PageTitle>Facility Not Found</PageTitle>
 
-        <table class="table table-borderless table-sm">
-            <tbody>
-            <tr>
-                <th scope="row">Name</th>
-                <td>@FacilityView.Name</td>
-            </tr>
-            <tr>
-                <th scope="row">County</th>
-                <td>@FacilityView.County.Name County</td>
-            </tr>
-            <tr>
-                <th scope="row">Description</th>
-                <td>@FacilityView.Description</td>
-            </tr>
-            <tr>
-                <th scope="row">Address</th>
-                <td>
-                    <AddressDisplay Address="@FacilityView.FacilityAddress" />
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    }
+    <h1>Facility Not Found</h1>
+
+    <p>Facility ID @FacilityId!.FacilityId could not be found.</p>
 }
 else
 {
-    <PageTitle>Facility Lookup</PageTitle>
+    <PageTitle>Facility @FacilityView.Id</PageTitle>
+    <h1>Facility @FacilityView.Id</h1>
 
-    <h1>Facility Lookup</h1>
-
-    <div>
-        <input type="text" placeholder="000-00000" value="@SearchText" @oninput="@FindFacilityAsync" />
-        @switch (State)
-        {
-            case SearchState.FacilityIdNotValid:
-                <em>Keep typing...</em>
-                break;
-
-            case SearchState.FacilityNotFound:
-                <em class="text-warning">Facility not found...</em>
-                break;
-
-            case SearchState.FacilityFound:
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th scope="col">AIRS No.</th>
-                        <th scope="col">Facility</th>
-                        <th scope="col">City</th>
-                        <th scope="col">County</th>
-                        <th scope="col">Description</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td class="text-nowrap">
-                            <a href="/facility/@FacilityView!.Id">@FacilityView!.Id</a>
-                        </td>
-                        <td>@FacilityView.Name</td>
-                        <td>@FacilityView.FacilityAddress?.City</td>
-                        <td>@FacilityView.County.Name County</td>
-                        <td>@FacilityView.Description</td>
-                    </tr>
-                    </tbody>
-                </table>
-                break;
-
-            case SearchState.SearchTextEmpty:
-            default:
-                <em>Enter AIRS Number...</em>
-                break;
-        }
-    </div>
+    <table class="table table-borderless table-sm">
+        <tbody>
+        <tr>
+            <th scope="row">Name</th>
+            <td>@FacilityView.Name</td>
+        </tr>
+        <tr>
+            <th scope="row">County</th>
+            <td>@FacilityView.County.Name County</td>
+        </tr>
+        <tr>
+            <th scope="row">Description</th>
+            <td>@FacilityView.Description</td>
+        </tr>
+        <tr>
+            <th scope="row">Address</th>
+            <td>
+                <AddressDisplay Address="@FacilityView.FacilityAddress" />
+            </td>
+        </tr>
+        </tbody>
+    </table>
 }

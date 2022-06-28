@@ -1,0 +1,61 @@
+﻿@page "/facility-search"
+
+<PageTitle>Facility Lookup</PageTitle>
+
+<h1>Facility Lookup</h1>
+
+<input type="text" placeholder="000-00000" value="@SearchText" @oninput="@FindFacilityAsync" />
+@switch (State)
+{
+    case SearchState.SearchTextEmpty:
+        <p>
+            <em>Enter AIRS Number...</em>
+        </p>
+        break;
+
+    case SearchState.SearchTextShort:
+        <p>
+            <em>Keep typing...</em>
+        </p>
+        break;
+    
+    case SearchState.SearchTextReady:
+        @if (SearchResults.Count == 0)
+        {
+            <p>
+                <em>No results found.</em>
+            </p>
+        }
+        else
+        {
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">AIRS No.</th>
+                    <th scope="col">Facility</th>
+                    <th scope="col">City</th>
+                    <th scope="col">County</th>
+                    <th scope="col">Description</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var facility in SearchResults)
+                {
+                    <tr>
+                        <td class="text-nowrap">
+                            <a href="/facility/@facility.Id">@facility.Id</a>
+                        </td>
+                        <td>@facility.Name</td>
+                        <td>@facility.FacilityAddress?.City</td>
+                        <td>@facility.County.Name County</td>
+                        <td>@facility.Description</td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        }
+        break;
+
+    default:
+        throw new ArgumentOutOfRangeException();
+}
