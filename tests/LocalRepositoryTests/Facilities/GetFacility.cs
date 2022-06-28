@@ -10,9 +10,9 @@ public class GetFacility
     public async Task ReturnsFacilityIfExists()
     {
         var facility = FacilityData.Facilities.First();
-        var repo = new FacilityRepository();
+        var repository = new FacilityRepository();
 
-        var result = await repo.GetFacilityAsync(facility.FacilityId);
+        var result = await repository.GetFacilityAsync(facility.FacilityId);
 
         result.Should().BeEquivalentTo(facility);
     }
@@ -20,8 +20,8 @@ public class GetFacility
     [Test]
     public async Task ReturnsNullIfNotExists()
     {
-        var repo = new FacilityRepository();
-        var result = await repo.GetFacilityAsync(new ApbFacilityId(FacilityData.FacilityIdThatDoesNotExist));
+        var repository = new FacilityRepository();
+        var result = await repository.GetFacilityAsync(new ApbFacilityId(FacilityData.FacilityIdThatDoesNotExist));
         result.Should().BeNull();
     }
 }

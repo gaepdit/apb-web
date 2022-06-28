@@ -17,13 +17,13 @@ public class GetFacility
         const string facilityId = "00100001";
         var facilityView = new FacilityView(new Facility(facilityId));
 
-        var mockLogger = new Mock<ILogger<FacilityController>>().Object;
+        var mockLogger = new Mock<ILogger<FacilityController>>();
         var mockRepo = new Mock<IFacilityRepository>();
         mockRepo.Setup(l => l.GetFacilityAsync(It.IsAny<ApbFacilityId>()))
             .ReturnsAsync(facilityView);
 
-        var controller = new FacilityController(mockLogger);
-        var response = await controller.GetFacilityAsync(mockRepo.Object, facilityId);
+        var controller = new FacilityController(mockRepo.Object, mockLogger.Object);
+        var response = await controller.GetFacilityAsync(facilityId);
 
         Assert.Multiple(() =>
         {
@@ -40,13 +40,13 @@ public class GetFacility
         const string facilityId = "00100001";
         FacilityView? facilityView = null;
 
-        var mockLogger = new Mock<ILogger<FacilityController>>().Object;
+        var mockLogger = new Mock<ILogger<FacilityController>>();
         var mockRepo = new Mock<IFacilityRepository>();
         mockRepo.Setup(l => l.GetFacilityAsync(It.IsAny<ApbFacilityId>()))
             .ReturnsAsync(facilityView);
 
-        var controller = new FacilityController(mockLogger);
-        var response = await controller.GetFacilityAsync(mockRepo.Object, facilityId);
+        var controller = new FacilityController(mockRepo.Object, mockLogger.Object);
+        var response = await controller.GetFacilityAsync(facilityId);
 
         Assert.Multiple(() =>
         {
@@ -62,10 +62,10 @@ public class GetFacility
         const string facilityId = "000";
 
         var mockRepo = new Mock<IFacilityRepository>();
-        var mockLogger = new Mock<ILogger<FacilityController>>().Object;
+        var mockLogger = new Mock<ILogger<FacilityController>>();
 
-        var controller = new FacilityController(mockLogger);
-        var response = await controller.GetFacilityAsync(mockRepo.Object, facilityId);
+        var controller = new FacilityController(mockRepo.Object, mockLogger.Object);
+        var response = await controller.GetFacilityAsync(facilityId);
 
         Assert.Multiple(() =>
         {

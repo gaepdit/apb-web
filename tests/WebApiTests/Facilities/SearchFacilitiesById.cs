@@ -1,4 +1,3 @@
-using Apb.Domain.Facilities.FacilityId;
 using Apb.Domain.Facilities.Repositories;
 using Apb.Domain.Facilities.Resources;
 using Apb.WebAPI.Facilities;
@@ -8,41 +7,40 @@ using Moq;
 
 namespace WebApiTests.Facilities;
 
-public class FacilityExists
+public class SearchFacilitiesById
 {
     [Test]
-    public async Task ReturnsOkIfValidFacilityId()
+    public async Task ReturnsOkIfValidRequest()
     {
-        const string facilityId = "00100001";
-        var facilityExistsResult = new FacilityExistsResult(facilityId, true);
+        const string findString = "001";
 
         var mockLogger = new Mock<ILogger<FacilityController>>();
         var mockRepo = new Mock<IFacilityRepository>();
-        mockRepo.Setup(l => l.FacilityExistsAsync(It.IsAny<ApbFacilityId>()))
-            .ReturnsAsync(facilityExistsResult);
+        mockRepo.Setup(l => l.SearchFacilitiesById(It.IsAny<string>()))
+            .ReturnsAsync(new List<FacilityView>());
 
         var controller = new FacilityController(mockRepo.Object, mockLogger.Object);
-        var response = await controller.FacilityExistsAsync(facilityId);
+        var response = await controller.SearchFacilitiesByIdAsync(findString);
 
         Assert.Multiple(() =>
         {
             response.Result.Should().BeOfType<OkObjectResult>();
             var result = response.Result as OkObjectResult;
             result!.StatusCode.Should().Be(200);
-            result.Value.Should().BeEquivalentTo(facilityExistsResult);
+            result.Value.Should().BeOfType<List<FacilityView>>();
         });
     }
 
     [Test]
-    public async Task ReturnsBadRequestIfInvalidFacilityId()
+    public async Task ReturnsBadRequestIfLengthLessThanMinimum()
     {
-        const string facilityId = "000";
+        const string facilityId = "0";
 
         var mockRepo = new Mock<IFacilityRepository>();
         var mockLogger = new Mock<ILogger<FacilityController>>();
 
         var controller = new FacilityController(mockRepo.Object, mockLogger.Object);
-        var response = await controller.FacilityExistsAsync(facilityId);
+        var response = await controller.SearchFacilitiesByIdAsync(facilityId);
 
         Assert.Multiple(() =>
         {

@@ -7,4 +7,5 @@ public interface IFacilityRepository : IDisposable
 {
     Task<FacilityExistsResult> FacilityExistsAsync(ApbFacilityId facilityId);
     Task<FacilityView?> GetFacilityAsync(ApbFacilityId facilityId);
+    Task<List<FacilityView>> SearchFacilitiesById(string findFacilityId);
 }

@@ -10,9 +10,9 @@ public class FacilityExists
     public async Task ReturnsTrueIfExists()
     {
         var facility = FacilityData.Facilities.First();
-        var repo = new FacilityRepository();
+        var repository = new FacilityRepository();
 
-        var result = await repo.FacilityExistsAsync(facility.FacilityId);
+        var result = await repository.FacilityExistsAsync(facility.FacilityId);
 
         Assert.Multiple(() =>
         {
@@ -24,9 +24,9 @@ public class FacilityExists
     [Test]
     public async Task ReturnsFalseIfNotExists()
     {
-        var repo = new FacilityRepository();
+        var repository = new FacilityRepository();
 
-        var result = await repo.FacilityExistsAsync(new ApbFacilityId(FacilityData.FacilityIdThatDoesNotExist));
+        var result = await repository.FacilityExistsAsync(new ApbFacilityId(FacilityData.FacilityIdThatDoesNotExist));
 
         Assert.Multiple(() =>
         {

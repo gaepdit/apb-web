@@ -13,7 +13,7 @@ public sealed class FacilityRepository : IFacilityRepository
     public FacilityRepository(ApbDbContext context) => _context = context;
 
     public async Task<FacilityExistsResult> FacilityExistsAsync(ApbFacilityId facilityId) =>
-        new FacilityExistsResult(facilityId.FacilityId,
+        new(facilityId.FacilityId,
             await _context.Facilities.AsNoTracking().AnyAsync(e => e.Id == facilityId.FacilityId));
 
     public async Task<FacilityView?> GetFacilityAsync(ApbFacilityId facilityId)
@@ -22,6 +22,11 @@ public sealed class FacilityRepository : IFacilityRepository
             .SingleOrDefaultAsync(e => e.Id == facilityId.FacilityId).ConfigureAwait(false);
         return item is null ? null : new FacilityView(item);
     }
+
+    public Task<List<FacilityView>> SearchFacilitiesById(string findFacilityId) =>
+        _context.Facilities.AsNoTracking()
+            .Where(e => e.Id.Replace("-", "").Contains(findFacilityId.Replace("-", "")))
+            .OrderBy(e => e.Id).Select(e => new FacilityView(e)).ToListAsync();
 
     public void Dispose() => _context.Dispose();
 }
